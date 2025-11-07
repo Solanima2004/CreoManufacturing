@@ -24,17 +24,18 @@ nav {
     padding: 0;
     position: sticky; /* 画面をスクロールしてもついてくるように設定 */
     top: 0;
+    z-index: 1000; /* ドロップダウンより下、他より上 */
 }
 
 nav ul {
-    list-style: none;         /* 箇条書きの点を消す */
+    list-style: none;         /* 箇書きの点を消す */
     margin: 0;
     padding: 0;
-    display: flex;            /* ★重要：これでメニューが横並びになる */
+    display: flex;            /* これでメニューが横並びになる */
     justify-content: center;  /* メニュー全体を中央に配置 */
+    flex-wrap: wrap; /* スマホ表示で折り返す */
 }
 
-/* display: block; を指定することで、余白(padding)が効くようになる */
 nav a {
     display: block;
     color: #ffffff;           /* 文字色を白に */
@@ -43,7 +44,6 @@ nav a {
     transition: background-color 0.3s; /* 背景色が0.3秒で変わるアニメーション */
 }
 
-/* マウスを乗せたときのデザイン */
 nav a:hover {
     background-color: #4a6fa5; /* マウスを乗せたら背景色を少し明るくする */
 }
@@ -55,6 +55,10 @@ main {
     max-width: 800px; /*コンテンツの最大幅を設定*/
     margin: 20px auto;  /*中央揃え*/
     padding: 0 20px;
+}
+/* メインコンテンツから最初のマージンを削除 (sitemap-menuがくっつくように) */
+main > section:first-child {
+    margin-top: 0;
 }
 
 section {
@@ -70,19 +74,11 @@ h2 {
     padding-bottom: 10px;
 }
 
-/* ギャラリー */
-.gallery-container {
-    display: flex; /*画像を横並びにする*/
-    justify-content: space-around; /*画像を均等に配置*/
-    flex-wrap: wrap; /*画面幅に応じて折り返す*/
+h3 {
+    border-left: 5px solid #2c3e50;
+    padding-left: 10px;
 }
 
-.gallery-container img {
-    width: 30%;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
 
 /* お問い合わせボタン */
 .contact-button {
@@ -109,13 +105,14 @@ footer {
     color: #fff;
 }
 
+
+/* ▼▼▼ プロジェクトページ用スタイル ▼▼▼ */
 .project-item {
-    display: flex; /* 画像と説明文を横並びに */
-    gap: 20px; /* 画像と説明文の間のスペース */
-    align-items: center; /* 縦方向の中央揃え */
-    
-    background-color: #f9f9f9; /* 各プロジェクトの背景色を少し変える */
-    margin-bottom: 25px; /* プロジェクト間の余白 */
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background-color: #f9f9f9;
+    margin-bottom: 25px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -132,7 +129,6 @@ footer {
     width: 60%;
 }
 
-/* 既存のh3スタイルだと線が左にあるので、プロジェクト用に上書き */
 .project-item h3 {
     margin-top: 0;
     border-left: none;
@@ -140,6 +136,8 @@ footer {
     border-bottom: 2px solid #2c3e50;
     padding-bottom: 5px;
 }
+/* ▲▲▲ プロジェクトページ用スタイル ▲▲▲ */
+
 
 /* スマホ表示用の設定 (画面幅が768px以下の場合) */
 @media (max-width: 768px) {
@@ -152,3 +150,127 @@ footer {
         width: 100%; /* 幅を100%に */
     }
 }
+
+
+/* ▼▼▼ ドロップダウンメニュー用スタイル ▼▼▼ */
+.dropdown {
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+/* ▲▲▲ ドロップダウンメニュー用スタイル ▲▲▲ */
+
+
+/* ▼▼▼ サイトマップ風メニュー ▼▼▼ */
+.sitemap-menu {
+    background-color: #2c3e50; /* ナビゲーションバーの色に合わせる */
+    color: #ffffff; /* 文字色を真っ白に */
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+.sitemap-menu h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.sitemap-menu ul {
+    display: flex;
+    flex-wrap: wrap; /* 画面幅で折り返す */
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 20px auto;
+    max-width: 900px;
+}
+.sitemap-menu li {
+    margin: 10px 20px;
+}
+.sitemap-menu li::before {
+    content: "●";
+    color: #ffffff;
+    margin-right: 8px;
+}
+.sitemap-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: opacity 0.3s;
+}
+.sitemap-menu a:hover {
+    opacity: 0.7;
+}
+.sitemap-divider {
+    border: 0;
+    border-top: 1px dotted #ffffff;
+    opacity: 0.5;
+    margin: 30px auto;
+    width: 80%;
+}
+/* ▲▲▲ サイトマップ風メニュー ▲▲▲ */
+
+
+/* ▼▼▼ 挨拶・コメントページ用スタイル ▼▼▼ */
+.signature {
+    text-align: right;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-top: 30px;
+}
+
+.section-divider {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 40px 0;
+}
+/* ▲▲▲ 挨拶・コメントページ用スタイル ▲▲▲ */
+
+
+/* ▼▼▼ Q&Aページ用スタイル (NEW) ▼▼▼ */
+.qa-list {
+    margin: 20px 0 0 0;
+    padding: 0;
+}
+.qa-list dt {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 15px 10px;
+    background-color: #f4f4f4;
+    border-top: 1px solid #ddd;
+    border-left: 5px solid #2c3e50; /* メインカラーのアクセント */
+}
+.qa-list dd {
+    padding: 20px;
+    margin: 0 0 20px 0; /* 回答の下に余白 */
+    border-bottom: 1px solid #ddd;
+}
+/* ▲▲▲ Q&Aページ用スタイル (NEW) ▲▲▲ */
