@@ -126,7 +126,8 @@ footer {
 }
 
 .project-item .project-description {
-    width: 60%;
+    flex: 1;    /* ← 「残りのスペースを自動で使う」という命令です */
+    min-width: 0; /* レイアウト崩れを防ぐおまじない */
 }
 
 .project-item h3 {
@@ -274,3 +275,27 @@ footer {
     border-bottom: 1px solid #ddd;
 }
 /* ▲▲▲ Q&Aページ用スタイル (NEW) ▲▲▲ */
+
+/* ▼▼▼ 写真を複数枚並べるための設定 ▼▼▼ */
+.photo-container {
+    width: 40%;      /* 左側のスペースの40%を使う */
+    display: flex;   /* 中身を整列させる */
+    flex-direction: column; /* 写真を「縦」に並べる */
+    gap: 10px;       /* 写真と写真の間隔 */
+    flex-shrink: 0;  /* 縮まないようにする */
+}
+
+/* 箱の中にある画像の設定 */
+.photo-container img {
+    width: 100%;     /* 箱の幅いっぱいに表示 */
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* スマホの時は幅を100%にする（既存のスマホ設定に合わせて調整） */
+@media (max-width: 768px) {
+    .photo-container {
+        width: 100%;
+    }
+}
